@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<head>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"
+    integrity="sha512-zhHQR0/H5SEBL3Wn6yYSaTTZej12z0hVZKOv3TwCUXT1z5qeqGcXJLLrbERYRScEDDpYIJhPC1fk31gqR783iQ=="
+    crossorigin="anonymous"
+  ></script>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs"
+    crossorigin="anonymous"
+  />
+  <script
+    src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js"
+    integrity="sha384-483A6DwYfKeDa0Q52fJmxFXkcPCFfnXMoXblOkJ4JcA8zATN6Tm78UNL72AKk+0O"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-yACMu8JWxKzSp/C1YV86pzGiQ/l1YUfE8oPuahJQxzehAjEt2GiQuy/BIvl9KyeF"
+    crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"
+  ></script>
+
+  <script src="utils.js" defer></script>
+  <script src="shaders.js" type="module" defer></script>
+  <script src="2.1.1_2d_transforms.js" type="module" defer></script>
+</head>
+
+<body>
+  <div class="flex-container">
+    <canvas
+      id="glCanvas"
+      style="padding-right: 10px"
+      width="640"
+      height="480"
+    ></canvas>
+    <div class="flex-container-vertical">
+      <div class="flex-item-vertical flex-container-vertical" id="Translation">
+        <span>Translation Matrix:</span>
+        <span class="flex-item-vertical">
+          <span id="translation_matrix_display">
+            \( \begin{bmatrix} . & . & .\\ . & . & .\\ . & . & . \end{bmatrix}
+            \)
+          </span>
+        </span>
+        <span id="x_trans_disp">0</span>
+        <div class="slidecontainer">
+          <input
+            type="range"
+            min="-5"
+            max="5"
+            value="0"
+            step="0.1"
+            class="slider"
+            id="2d_x_trans_slider"
+          />
+        </div>
+        <span id="y_trans_disp">0</span>
+        <div class="slidecontainer">
+          <input
+            type="range"
+            min="-5"
+            max="5"
+            value="0"
+            step="0.1"
+            class="slider"
+            id="2d_y_trans_slider"
+          />
+        </div>
+      </div>
+
+      <div class="flex-item-vertical flex-container-vertical" id="Rotation">
+        <span>Rotation Matrix:</span>
+        <span class="flex-item-vertical" id="rotation_matrix_display">
+          \( \begin{bmatrix} . & . & .\\ . & . & .\\ . & . & . \end{bmatrix} \)
+        </span>
+
+        <span id="rotation_degree_display">0</span>
+        <div class="slidecontainer">
+          <input
+            type="range"
+            min="0"
+            max="360"
+            value="0"
+            class="slider"
+            id="2d_rotation_slider"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<style>
+  .flex-container {
+    /* We first create a flex layout context */
+    display: flex;
+
+    /* Then we define the flow direction 
+     and if we allow the items to wrap 
+   * Remember this is the same as:
+   * flex-direction: row;
+   * flex-wrap: wrap;
+   */
+    flex-flow: row wrap;
+
+    /* Then we define how is distributed the remaining space */
+    justify-content: flex-start;
+
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .flex-container-vertical {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+
+    padding: 0px;
+    margin: 0;
+    list-style: none;
+  }
+
+  .flex-item-vertical {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+</style>
